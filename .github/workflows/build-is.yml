@@ -16,8 +16,8 @@ env:
   # REPO_BRANCH: main
   FEEDS_CONF: feeds.conf
   CONFIG_FILE: .config
-  DIY_P1_SH: scripts/diy-part1.sh
-  DIY_P2_SH: scripts/diy-part2.sh
+  DIY_P1_SH: scripts/1.sh
+  #DIY_P1_SH: scripts/1.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -31,12 +31,12 @@ jobs:
       matrix:
         REPO_BRANCH:
           # - main
-          - istoreos-22.03
-          # - istoreos-23.05
+          # - istoreos-22.03
+          - istoreos-23.05
         ARCHITECTURE:
-          - rk33xx
-          - rk35xx
-          - x86
+          # - rk33xx
+          - config_360P2
+          - config_x86
         os:
           - ubuntu-22.04
 
@@ -73,7 +73,7 @@ jobs:
         echo "------------------------------- 更新并安装依赖 -------------------------------"
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/depends/${{ matrix.os }})
+        sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/depend/${{ matrix.os }})
         wget https://bootstrap.pypa.io/pip/3.6/get-pip.py
         sudo python3 get-pip.py
         sudo rm -rf get-pip.py
